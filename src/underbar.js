@@ -54,10 +54,10 @@
   _.each = function(collection, iterator) {
     if(Array.isArray(collection)) {
       for(var i = 0; i < collection.length; i++)
-        iterator(collection[i]);
+        iterator(collection[i],i,collection);
     } else {
       for(var k in collection)
-        iterator(collection[k]);
+        iterator(collection[k],k,collection);
     }
   };
 
