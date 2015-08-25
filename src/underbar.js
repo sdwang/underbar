@@ -220,6 +220,21 @@
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
+    if(arguments.length===1) {
+      return _.reduce(collection,function(pass, item) {
+        if(item) {
+          pass = true;
+        }
+        return pass;
+      }, false);
+    } else {
+      return _.reduce(collection, function(pass, item) {
+        if(iterator(item)) {
+          pass = true;
+        }
+        return pass;
+      }, false);
+    }
   };
 
 
