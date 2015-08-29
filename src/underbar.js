@@ -359,8 +359,68 @@
   // TIP: This function's test suite will ask that you not modify the original
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
+  
+  //checks if arrays of the same length have the same elements in the same position
+  _.contentEqual = function(array1, array2) {
+
+    if(array1.length !== array2.length) {
+      return false
+    }
+
+    for(var i = 0; i < array1.length; i++) {
+      if(array1[i] !== array2[i]) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+
   _.shuffle = function(array) {
+    var shuffled = array.slice();
+    var toBeShuffled = shuffled.length;
+
+    while(toBeShuffled > 0) {
+      var random = Math.floor(Math.random() * toBeShuffled);
+      toBeShuffled--;
+      var lastElement = shuffled[toBeShuffled];
+
+
+      //Swap last element with the random element
+      shuffled[toBeShuffled] = shuffled[random];
+      //Swap the random element with the last element
+      shuffled[random] = lastElement;
+    }
+
+    if(_.contentEqual(shuffled, array)) {
+      return _.shuffle(array);
+    } else {
+      return shuffled;
+    }
   };
+
+
+
+
+  // _.shuffle = function(array) {
+  //   var shuffled = [];
+  //   var position = [];
+  //   while(position.length < array.length) {
+  //     var pos = Math.floor(Math.random() * array.length);
+  //     if(!_.contains(position, pos)) {
+  //       position.push(pos);
+  //     }
+  //   }
+  //   for(var i = 0; i < position.length; i++) {
+  //     shuffled[position[i]] = array[i];
+  //   }
+  //   if(array === shuffled) {
+  //     return _.shuffle(array);
+  //   } else {
+  //     return shuffled;
+  //   }
+  //   };
 
 
   /**
