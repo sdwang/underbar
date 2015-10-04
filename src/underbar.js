@@ -434,11 +434,22 @@
   // Calls the method named by functionOrKey on each value in the list.
   // Note: You will need to learn a bit about .apply to complete this.
   _.invoke = function(collection, functionOrKey, args) {
+    
     var results = [];
 
-    _.each(collection, function(value) {
-      results.push(functionOrKey.call(value));
-    });
+    if(typeof functionOrKey === 'function') {
+      //when functionOrKey is a function
+      _.each(collection, function(value) {
+        results.push(functionOrKey.apply(value));
+      });
+    } else {
+      //when functionOrKey is a method name AKA string
+      _.each(collection, function(value) {
+        results.push((function() {
+          return this[functionOrKey]();
+        }).apply(value));
+      });
+    }
 
     return results;
   };
